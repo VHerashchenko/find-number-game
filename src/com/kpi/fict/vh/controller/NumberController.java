@@ -8,24 +8,53 @@ import java.util.Scanner;
 
 public class NumberController {
 
+    Number number;
     NumberService numberService;
     NumberView numberView;
 
-    public NumberController(NumberService numberService, NumberView numberView){
-        this.numberService = numberService;
+    public NumberController(Number number, NumberView numberView){
+        this.number = number;
         this.numberView = numberView;
+        numberService = new NumberService(number);
     }
 
     public void processUser(){
         Scanner scanner = new Scanner(System.in);
 
-        int minValue = borderPatrol(Number.DEFAULT_MIN_VALUE, Number.DEFAULT_MAX_VALUE, scanner);
-        int maxValue = borderPatrol(minValue, Number.DEFAULT_MAX_VALUE, scanner);
-        numberService.setNumberIntByMaxMinValues(minValue, maxValue);
-//------------------------------------------------------
-        numberService.isNumberRight(10);
-        System.out.println(minValue);
-        System.out.println(maxValue);
+        numberView.printMessage("Do you want to change default border? y/n");
+        String borderControl = scanner.nextLine();
+        while( ! (borderControl.equals("y") || borderControl.equals("n"))) {
+            numberView.printMessage(NumberView.WRONG_INPUT_INT_DATA_REPEAT);
+            scanner.nextLine();
+        }
+
+        if(borderControl.equals("y")) {
+            int minValue = borderPatrol(Number.DEFAULT_MIN_VALUE, Number.DEFAULT_MAX_VALUE, scanner);
+            int maxValue = borderPatrol(minValue, Number.DEFAULT_MAX_VALUE, scanner);
+
+            numberService.setNumberIntByMaxMinValues(minValue, maxValue);
+            numberView.printMessage("Border is changed");
+        }
+        else {
+            numberService.setNumberIntByMaxMinValues();
+        }
+
+        int enteredNumber = borderPatrol(number.getMinInt(), number.getMaxInt(), scanner);
+        while (! numberService.isNumberRight(enteredNumber)){
+
+            switch (numberService.guessNumberLogic(enteredNumber)){
+                case -1:
+                    numberView.printMessage("Your number is lower then needed");
+                    break;
+                case 1:
+                    numberView.printMessage("Your number is higher then needed");
+                    break;
+            }
+            enteredNumber = borderPatrol(number.getMinInt(), number.getMaxInt(), scanner);
+        }
+
+        numberView.printLog(number.getLogList());
+
     }
 
     private int borderPatrol(int minValue, int maxValue, Scanner scanner){

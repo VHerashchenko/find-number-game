@@ -6,13 +6,17 @@ import java.util.List;
 public class Number {
     int number;
 
-    private List<String> logList = new ArrayList<>();
+    private final List<String> logList;
 
     private int maxInt;
     private int minInt;
 
     public static final int DEFAULT_MAX_VALUE = 100;
     public static final int DEFAULT_MIN_VALUE = 0;
+
+    public Number(){
+        logList = new ArrayList<>();
+    }
 
     public int getMaxInt() {
         return maxInt;
@@ -30,23 +34,19 @@ public class Number {
         this.minInt = minInt;
     }
 
-    public List<String> getLogList() {
-        return logList;
-    }
-
-    public void setLogList(List<String> logList) {
-        this.logList = logList;
-    }
-
-    public void appendTextToLogList(String newLogMessage){
-        logList.add(newLogMessage);
-    }
-
     public Integer getNumber() {
         return number;
     }
 
     public void setNumber(Integer number) {
         this.number = number;
+    }
+
+    public List<String> getLogList() {
+        return logList;
+    }
+
+    public void appendTextToLogList(String newLogMessage){
+        logList.add(newLogMessage);
     }
 }

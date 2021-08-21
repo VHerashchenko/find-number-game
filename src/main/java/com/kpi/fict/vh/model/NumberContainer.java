@@ -3,7 +3,7 @@ package com.kpi.fict.vh.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Number {
+public class NumberContainer {
     int number;
 
     private final List<String> logList;
@@ -14,7 +14,7 @@ public class Number {
     public static final int DEFAULT_MAX_VALUE = 100;
     public static final int DEFAULT_MIN_VALUE = 0;
 
-    public Number(){
+    public NumberContainer(){
         logList = new ArrayList<>();
     }
 

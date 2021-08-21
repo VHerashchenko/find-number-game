@@ -1,21 +1,24 @@
 package com.kpi.fict.vh.controller;
 
-import com.kpi.fict.vh.model.Number;
+import com.kpi.fict.vh.model.NumberContainer;
 import com.kpi.fict.vh.service.NumberService;
+import com.kpi.fict.vh.service.impl.NumberServiceRandom;
+import com.kpi.fict.vh.service.impl.NumberServiceThreadLocalRandom;
 import com.kpi.fict.vh.view.NumberView;
 
+import java.time.Instant;
 import java.util.Scanner;
 
 public class NumberController {
 
-    Number number;
-    NumberService numberService;
-    NumberView numberView;
+    private final NumberContainer numberContainer;
+    private final NumberService numberService;
+    private final NumberView numberView;
 
-    public NumberController(Number number, NumberView numberView){
-        this.number = number;
+    public NumberController(NumberContainer numberContainer, NumberView numberView){
+        this.numberContainer = numberContainer;
         this.numberView = numberView;
-        numberService = new NumberService(number);
+        numberService = Instant.now().getEpochSecond() % 2 == 0 ? new NumberServiceRandom() : new NumberServiceThreadLocalRandom();
     }
 
     public void processUser(){
@@ -23,26 +26,26 @@ public class NumberController {
 
         numberView.printMessage("Do you want to change default border? y/n");
         String borderControl = scanner.nextLine();
-        while( ! (borderControl.equals("y") || borderControl.equals("n"))) {
+        while( ! (borderControl.equalsIgnoreCase("y") || borderControl.equalsIgnoreCase("n"))) {
             numberView.printMessage(NumberView.WRONG_INPUT_INT_DATA_REPEAT);
-            scanner.nextLine();
+            borderControl = scanner.nextLine();
         }
 
-        if(borderControl.equals("y")) {
-            int minValue = borderPatrol(Number.DEFAULT_MIN_VALUE, Number.DEFAULT_MAX_VALUE, scanner);
-            int maxValue = borderPatrol(minValue, Number.DEFAULT_MAX_VALUE, scanner);
+        if(borderControl.equalsIgnoreCase("y")) {
+            int minValue = borderPatrol(NumberContainer.DEFAULT_MIN_VALUE, NumberContainer.DEFAULT_MAX_VALUE, scanner);
+            int maxValue = borderPatrol(minValue, NumberContainer.DEFAULT_MAX_VALUE, scanner);
 
-            numberService.setNumberIntByMaxMinValues(minValue, maxValue);
+            numberService.setNumberIntByMaxMinValues(numberContainer, minValue, maxValue);
             numberView.printMessage("Border is changed");
         }
         else {
-            numberService.setNumberIntByMaxMinValues();
+            numberService.setNumberIntByMaxMinValues(numberContainer);
         }
 
-        int enteredNumber = borderPatrol(number.getMinInt(), number.getMaxInt(), scanner);
-        while (! numberService.isNumberRight(enteredNumber)){
+        int enteredNumber = borderPatrol(numberContainer.getMinInt(), numberContainer.getMaxInt(), scanner);
+        while (! numberService.isNumberRight(numberContainer, enteredNumber)){
 
-            switch (numberService.guessNumberLogic(enteredNumber)){
+            switch (numberService.guessNumberLogic(numberContainer, enteredNumber)){
                 case -1:
                     numberView.printMessage("Your number is lower then needed");
                     break;
@@ -50,10 +53,10 @@ public class NumberController {
                     numberView.printMessage("Your number is higher then needed");
                     break;
             }
-            enteredNumber = borderPatrol(number.getMinInt(), number.getMaxInt(), scanner);
+            enteredNumber = borderPatrol(numberContainer.getMinInt(), numberContainer.getMaxInt(), scanner);
         }
 
-        numberView.printLog(number.getLogList());
+        numberView.printLog(numberContainer.getLogList());
 
     }
 

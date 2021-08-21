@@ -1,32 +1,41 @@
 package com.kpi.fict.vh.service;
 
-import com.kpi.fict.vh.model.Number;
+import com.kpi.fict.vh.model.NumberContainer;
+import com.kpi.fict.vh.service.impl.NumberServiceRandom;
+import com.kpi.fict.vh.service.impl.NumberServiceThreadLocalRandom;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class NumberServiceTest {
 
-    Number number = new Number();
-    NumberService numberService;
+    private final NumberContainer numberContainer = new NumberContainer();
+
+    private static Stream<NumberService> dataTest(){
+        return Stream.of(new NumberServiceRandom(), new NumberServiceThreadLocalRandom());
+    }
 
     @BeforeEach
     void setNumber(){
-        number.setNumber(10);
-        numberService = new NumberService(number);
+        numberContainer.setNumber(10);
     }
 
-    @Test
-    void guessNumberLogic() {
-        assertEquals(1 , numberService.guessNumberLogic(11));
-        assertEquals(-1, numberService.guessNumberLogic(9));
-        assertEquals(0, numberService.guessNumberLogic(10));
+    @ParameterizedTest
+    @MethodSource("dataTest")
+    void guessNumberLogic(NumberService numberService) {
+        assertEquals(1 , numberService.guessNumberLogic(numberContainer,11));
+        assertEquals(-1, numberService.guessNumberLogic(numberContainer,9));
+        assertEquals(0, numberService.guessNumberLogic(numberContainer,10));
     }
 
-    @Test
-    void isNumberRight(){
-        assertTrue(numberService.isNumberRight(10));
-        assertFalse(numberService.isNumberRight(9));
+    @ParameterizedTest
+    @MethodSource("dataTest")
+    void isNumberRight(NumberService numberService){
+        assertTrue(numberService.isNumberRight(numberContainer,10));
+        assertFalse(numberService.isNumberRight(numberContainer,9));
     }
 }

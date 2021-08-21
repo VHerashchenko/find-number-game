@@ -38,4 +38,11 @@ class NumberServiceTest {
         assertTrue(numberService.isNumberRight(numberContainer,10));
         assertFalse(numberService.isNumberRight(numberContainer,9));
     }
+
+    @ParameterizedTest
+    @MethodSource("dataTest")
+    void getRandomNumber(NumberService numberService){
+        numberService.setNumberIntByMaxMinValues(numberContainer, 40, 50);
+        assertTrue(numberContainer.getNumber() >= 40 && numberContainer.getNumber() <= 50);
+    }
 }

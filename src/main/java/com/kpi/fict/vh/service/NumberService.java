@@ -11,5 +11,4 @@ public interface NumberService {
     boolean isNumberRight(NumberContainer numberContainer, int enteredNumber);
 
     int guessNumberLogic(NumberContainer numberContainer, int enteredNumber);
-
 }

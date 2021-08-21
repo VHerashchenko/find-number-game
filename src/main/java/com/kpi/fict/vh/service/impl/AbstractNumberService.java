@@ -7,7 +7,9 @@ import com.kpi.fict.vh.service.NumberService;
 public abstract class AbstractNumberService implements NumberService {
 
     public void setNumberIntByMaxMinValues(NumberContainer numberContainer){
-        setNumberIntByMaxMinValues(numberContainer, NumberContainer.DEFAULT_MIN_VALUE, NumberContainer.DEFAULT_MAX_VALUE);
+        setNumberIntByMaxMinValues(numberContainer,
+                NumberContainer.DEFAULT_MIN_VALUE,
+                getRandomNumber(NumberContainer.DEFAULT_MIN_VALUE, NumberContainer.DEFAULT_MAX_VALUE));
     }
 
     public void setNumberIntByMaxMinValues(NumberContainer numberContainer, int minValue, int maxValue){

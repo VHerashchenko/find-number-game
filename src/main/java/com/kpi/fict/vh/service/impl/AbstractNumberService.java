@@ -36,16 +36,16 @@ public abstract class AbstractNumberService implements NumberService {
 
          if (currentNumber < enteredNumber){
             numberContainer.appendTextToLogList("Number was higher then needed! It was: " + enteredNumber);
-            numberContainer.setMaxInt(enteredNumber - 1);
+            numberContainer.setMaxInt(enteredNumber);
 
-            numberContainer.appendTextToLogList("Border set from " + numberContainer.getMinInt() + " to " + (enteredNumber - 1));
+            numberContainer.appendTextToLogList("Border set from " + numberContainer.getMinInt() + " to " + enteredNumber);
             result = 1;
         }
         else if (currentNumber > enteredNumber){
             numberContainer.appendTextToLogList("Number was lower then needed! It was: " + enteredNumber);
-            numberContainer.setMinInt(enteredNumber + 1);
+            numberContainer.setMinInt(enteredNumber);
 
-            numberContainer.appendTextToLogList("Border set from " + (enteredNumber + 1) + " to " + numberContainer.getMaxInt());
+            numberContainer.appendTextToLogList("Border set from " + enteredNumber + " to " + numberContainer.getMaxInt());
             result = -1;
         }
 

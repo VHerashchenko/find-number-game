@@ -13,7 +13,7 @@ public class NumberView {
     }
 
     public void printBorderValues(int minValue, int maxValue){
-        System.out.println("Current border from " + minValue + " to " + maxValue);
+        System.out.println("Current border is \">\" " + minValue + " and \"<\" " + maxValue);
     }
 
     public void printLog(List<String> inputList){

@@ -82,7 +82,7 @@ public class NumberController {
         numberView.printBorderValues(minValue, maxValue);
         int currentNumber = inputIntValueWithScanner(scanner);
 
-        while( ! (currentNumber >= minValue && currentNumber <= maxValue)){
+        while( ! (currentNumber > minValue && currentNumber < maxValue)){
             numberView.printMessage(NumberView.WRONG_INPUT_INT_DATA);
             currentNumber = inputIntValueWithScanner(scanner);
         }

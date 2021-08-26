@@ -15,7 +15,7 @@ public abstract class AbstractNumberService implements NumberService {
     public void setNumberIntByMaxMinValues(NumberContainer numberContainer, int minValue, int maxValue){
         numberContainer.setMinInt(minValue);
         numberContainer.setMaxInt(maxValue);
-        numberContainer.appendTextToLogList("Border set from " + minValue + " to " + maxValue);
+        numberContainer.appendTextToLogList("Border set > " + minValue + " < " + maxValue);
     }
 
     public void setRandomNumber(NumberContainer numberContainer){
@@ -38,14 +38,14 @@ public abstract class AbstractNumberService implements NumberService {
             numberContainer.appendTextToLogList("Number was higher then needed! It was: " + enteredNumber);
             numberContainer.setMaxInt(enteredNumber);
 
-            numberContainer.appendTextToLogList("Border set from " + numberContainer.getMinInt() + " to " + enteredNumber);
+            numberContainer.appendTextToLogList("Border set > " + numberContainer.getMinInt() + " < " + enteredNumber);
             result = 1;
         }
         else if (currentNumber > enteredNumber){
-            numberContainer.appendTextToLogList("Number was lower then needed! It was: " + enteredNumber);
+            numberContainer.appendTextToLogList("Number was lower then excepted! It was: " + enteredNumber);
             numberContainer.setMinInt(enteredNumber);
 
-            numberContainer.appendTextToLogList("Border set from " + enteredNumber + " to " + numberContainer.getMaxInt());
+            numberContainer.appendTextToLogList("Border set > " + enteredNumber + " < " + numberContainer.getMaxInt());
             result = -1;
         }
 

@@ -15,8 +15,11 @@ public abstract class AbstractNumberService implements NumberService {
     public void setNumberIntByMaxMinValues(NumberContainer numberContainer, int minValue, int maxValue){
         numberContainer.setMinInt(minValue);
         numberContainer.setMaxInt(maxValue);
-        numberContainer.setNumber(getRandomNumber(minValue, maxValue));
         numberContainer.appendTextToLogList("Border set from " + minValue + " to " + maxValue);
+    }
+
+    public void setRandomNumber(NumberContainer numberContainer){
+        numberContainer.setNumber(getRandomNumber(numberContainer.getMinInt(), numberContainer.getMaxInt()));
     }
 
     public boolean isNumberRight(NumberContainer numberContainer, int enteredNumber){

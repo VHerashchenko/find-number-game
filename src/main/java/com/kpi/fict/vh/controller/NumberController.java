@@ -28,10 +28,11 @@ public class NumberController {
 
         setBorderByBorderString(borderControl, scanner);
 
+        setRandomNumber();
+
         guessGame(scanner);
 
         numberView.printLog(numberContainer.getLogList());
-
     }
 
     private String setBorderQuestion(Scanner scanner){
@@ -55,6 +56,10 @@ public class NumberController {
         else {
             numberService.setNumberIntByMaxMinValues(numberContainer);
         }
+    }
+
+    private void setRandomNumber(){
+        numberService.setRandomNumber(numberContainer);
     }
 
     private void guessGame(Scanner scanner){

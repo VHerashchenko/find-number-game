@@ -24,38 +24,13 @@ public class NumberController {
     public void processUser(){
         Scanner scanner = new Scanner(System.in);
 
-        String borderControl = setBorderQuestion(scanner);
-
-        setBorderByBorderString(borderControl, scanner);
+        numberService.setNumberIntByMaxMinValues(numberContainer);
 
         setRandomNumber();
 
         guessGame(scanner);
 
         numberView.printLog(numberContainer.getLogList());
-    }
-
-    private String setBorderQuestion(Scanner scanner){
-        numberView.printMessage("Do you want to change default border? y/n");
-        String borderControl = scanner.nextLine();
-        while( ! (borderControl.equalsIgnoreCase("y") || borderControl.equalsIgnoreCase("n"))) {
-            numberView.printMessage(NumberView.WRONG_INPUT_INT_DATA_REPEAT);
-            borderControl = scanner.nextLine();
-        }
-        return borderControl;
-    }
-
-    private void setBorderByBorderString(String borderControl, Scanner scanner){
-        if(borderControl.equalsIgnoreCase("y")) {
-            int minValue = borderPatrol(NumberContainer.DEFAULT_MIN_VALUE, NumberContainer.DEFAULT_MAX_VALUE, scanner);
-            int maxValue = borderPatrol(minValue, NumberContainer.DEFAULT_MAX_VALUE, scanner);
-
-            numberService.setNumberIntByMaxMinValues(numberContainer, minValue, maxValue);
-            numberView.printMessage("Border is changed");
-        }
-        else {
-            numberService.setNumberIntByMaxMinValues(numberContainer);
-        }
     }
 
     private void setRandomNumber(){

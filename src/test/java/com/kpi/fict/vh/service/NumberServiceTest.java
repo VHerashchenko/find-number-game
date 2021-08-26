@@ -43,6 +43,7 @@ class NumberServiceTest {
     @MethodSource("dataTest")
     void getRandomNumber(NumberService numberService){
         numberService.setNumberIntByMaxMinValues(numberContainer, 40, 50);
+        numberService.setRandomNumber(numberContainer);
         assertTrue(numberContainer.getNumber() >= 40 && numberContainer.getNumber() <= 50);
     }
 }

@@ -4,7 +4,6 @@ import com.kpi.fict.vh.model.NumberContainer;
 import com.kpi.fict.vh.service.impl.NumberServiceRandom;
 import com.kpi.fict.vh.service.impl.NumberServiceThreadLocalRandom;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 

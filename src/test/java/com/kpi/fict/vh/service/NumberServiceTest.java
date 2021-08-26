@@ -40,10 +40,9 @@ class NumberServiceTest {
         assertFalse(numberService.isNumberRight(numberContainer,9));
     }
 
-    @Disabled
     @ParameterizedTest
     @MethodSource("dataTest")
-    void getRandomNumber(NumberService numberService){
+    void setRandomNumber(NumberService numberService){
         for(int i = 0; i < 1000; ++i) {
             numberService.setNumberIntByMaxMinValues(numberContainer, 45, 50);
             numberService.setRandomNumber(numberContainer);

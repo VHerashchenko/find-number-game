@@ -42,8 +42,8 @@ class NumberServiceTest {
     @ParameterizedTest
     @MethodSource("dataTest")
     void setRandomNumber(NumberService numberService){
+        numberService.setNumberIntByMaxMinValues(numberContainer, 45, 50);
         for(int i = 0; i < 1000; ++i) {
-            numberService.setNumberIntByMaxMinValues(numberContainer, 45, 50);
             numberService.setRandomNumber(numberContainer);
             assertTrue(numberContainer.getNumber() > 45 && numberContainer.getNumber() < 50);
         }
